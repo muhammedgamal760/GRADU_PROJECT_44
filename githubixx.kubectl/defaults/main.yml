@@ -1,0 +1,47 @@
+---
+# "kubectl" version to install
+kubectl_version: "1.29.3"
+
+# The default "binary" will download "kubectl" as a binary file. This is
+# about 2.5x bigger then the ".tar.gz" file. The tarball needs to be unarchived
+# by the role first after downloading and is smaller.
+#
+# If you specify "binary" the "kubectl" binary file will be downloaded. In
+# contrast to the tarball the binary file is about 2.5x bigger but doesn't
+# need to be unarchived by this role.
+#
+# If download file size is important for you (e.g. slow download or download
+# over mobile link) stay with "archive". Otherwise "binary" might be an option.
+kubectl_download_filetype: "binary"
+#
+# SHA512 checksum of the "kubernetes-client-linux-amd64.tar.gz" file
+# (see https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#client-binaries)
+kubectl_checksum_archive: "sha512:c9cc7ab9e3aa776f2daab3a9e10ee78d57d0c081ef43f8032de36a61c6425ba527d5df92611b058672be0975a6b97ad3f3a169e282c26275d2c0e59e1f9b1173"
+#
+# SHA512 checksum of the binary. There is normally no need to change it.
+# Further information:
+#   - https://kubernetes.io/releases/download/#binaries
+#   - https://www.downloadkubernetes.com/
+kubectl_checksum_binary: "sha512:https://cdn.dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ kubectl_os }}/{{ kubectl_arch }}/kubectl.sha512"
+
+# Where to install "kubectl" binary
+kubectl_bin_directory: "/usr/local/bin"
+
+# Directory to store the kubectl archive
+# kubectl_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/tmp', true) }}"
+kubectl_tmp_directory: .
+
+# Owner of "kubectl" binary
+kubectl_owner: "root"
+
+# Group of "kubectl" binary
+kubectl_group: "root"
+
+# Specifies the permissions of the "kubectl" binary
+kubectl_binary_mode: "0755"
+
+# Operating system on which "kubectl" should run on
+kubectl_os: "linux"  # use "darwin" for MacOS X, "windows" for Windows
+
+# Processor architecture "kubectl" should run on
+kubectl_arch: "amd64"  # other possible values: "386","arm64","arm","ppc64le","s390x"

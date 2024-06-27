@@ -1,0 +1,37 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+
+platforms:
+  - name: test-kubectl-2204
+    image: ubuntu:22.04
+    pre_build_image: true
+  - name: test-kubectl-2004
+    image: ubuntu:20.04
+    pre_build_image: true
+  - name: test-kubectl-debian11
+    image: debian:11
+    pre_build_image: true
+  - name: test-kubectl-debian12
+    image: debian:12
+    pre_build_image: true
+  - name: test-kubectl-debian12-binary-sha512
+    image: debian:12
+    pre_build_image: true
+  - name: test-kubectl-debian12-binary-sha256
+    image: debian:12
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible

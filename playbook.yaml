@@ -1,0 +1,16 @@
+- name: my play
+  hosts: all
+  roles:
+  - gantsign.minikube
+  # - geerlingguy.pip
+  - geerlingguy.docker
+  - githubixx.kubectl
+  tasks:
+  - name: add user to docker Group
+    user:
+      name: ubuntu
+      groups: 
+      - docker
+  - name: refreshing the group
+    command: newgrp docker
+    tags: newgrp
